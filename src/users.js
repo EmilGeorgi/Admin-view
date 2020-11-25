@@ -1,6 +1,6 @@
 import * as React from "react";
-import { makeStyles } from '@material-ui/core';
-import { MenuItemLink, getResources, SimpleShowLayout, Show, EmailField, List, Datagrid, UrlField, TextField, ShowButton, EditButton, ReferenceInput, SelectInput, TextInput, Edit, SimpleForm, Create } from 'react-admin';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
+import { MenuItemLink, SimpleList, getResources, SimpleShowLayout, Show, EmailField, List, Datagrid, UrlField, TextField, ShowButton, EditButton, ReferenceInput, SelectInput, TextInput, Edit, SimpleForm, Create } from 'react-admin';
 import { useSelector } from 'react-redux';
 import DefaultIcon from '@material-ui/icons/ViewList';
 
@@ -39,23 +39,30 @@ const Menu = ({ onMenuClick, logout }) => {
     );
 };
 
-export const UserList = props => (
-    <div>
-        <Menu /> 
-        <List {...props}>
-            <Datagrid rowClick="show">
-                <TextField source="id" />
-                <TextField source="name" />
-                <EmailField source="email" />
-                <TextField source="phone" />
-                <UrlField source="website" />
-                <TextField source="company.name" />
-                <ShowButton />
-                <EditButton />
-            </Datagrid>
-        </List>
-    </div>
-);
+export const UserList = (props) => {
+    const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    return (
+        <div>
+            <Menu /> 
+            <List {...props}>
+                {isSmall ? (
+                    <SimpleList
+                        primaryText={record => record.name}
+                        secondaryText={record => `${record.views} views`}
+                        tertiaryText={record => new Date(record.published_at).toLocaleDateString()}
+                    />
+                ) : (
+                    <Datagrid rowClick="show">
+                        <TextField source="name" />
+                        <EmailField source="email" />
+                        <ShowButton />
+                        <EditButton />
+                    </Datagrid>
+                )}
+            </List>
+        </div>
+    );
+}
 
 export const UserEdit = props => (
     <Edit {...props}>

@@ -66,13 +66,11 @@ export const CommentsList = (props) => {
                     />
                 ) : (
                     <Datagrid rowClick="show"   >
-                        <TextField source="id" />
                         <ReferenceField label="Post" source="postId" reference="posts" link="show">
                             <TextField source="title" />
                         </ReferenceField>
                         <TextField source="name" />
                         <EmailField source="email" />
-                        <TextField source="body" />
                         <ShowButton />
                         <EditButton />
                     </Datagrid>

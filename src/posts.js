@@ -54,8 +54,6 @@ const Menu = ({ onMenuClick, logout }) => {
 
 export const PostList = (props) => {
     const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
-    const open = useSelector(state => state.admin.ui.sidebarOpen);
-    const resources = useSelector(getResources);
 
     return (
         <div>
@@ -69,12 +67,10 @@ export const PostList = (props) => {
                     />
                 ) : (
                     <Datagrid rowClick="show">
-                        <TextField source="id" />
                         <ReferenceField label="User" source="userId" reference="users" link="show">
                             <TextField source="name" />
                         </ReferenceField>
                         <TextField source="title" />
-                        <TextField source="body" />
                         <ShowButton />
                         <EditButton />
                     </Datagrid>

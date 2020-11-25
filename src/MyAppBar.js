@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { AppBar } from 'react-admin';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { ReactComponent as Logo } from './logo.svg';
 
 const useStyles = makeStyles({
     title: {
