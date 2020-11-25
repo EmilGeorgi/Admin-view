@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { Dashboard } from './Dashboard';
+import PostIcon from '@material-ui/icons/Book';
+import UserIcon from '@material-ui/icons/Group';
+import { Admin, Resource, ListGuesser, ShowGuesser, EditGuesser, } from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+import { UserList, UserShow, UserEdit, UserCreate } from './users';
+import { PostList, PostEdit, PostCreate, PostShow } from './posts';
+import { CommentsList, CommentsEdit, CommentsCreate, CommentsShow } from './comments';
+import MyLayout from './MyLayout';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+const App = () => (
+  <Admin layout={MyLayout} dashboard={Dashboard} dataProvider={dataProvider}>
+    <Resource name="posts" list={PostList} show={PostShow} edit={PostEdit} create={PostCreate} icon={PostIcon} />
+    <Resource name="users" list={UserList} show={UserShow} edit={UserEdit} create={UserCreate} icon={UserIcon} />
+    <Resource name="comments" list={CommentsList} show={CommentsShow} create={CommentsCreate} edit={CommentsEdit} icon={UserIcon} />
 
+  </Admin>
+);
 export default App;
